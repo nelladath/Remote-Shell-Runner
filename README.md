@@ -9,7 +9,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PowerShell 5.1+](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE?logo=powershell&logoColor=white)](https://learn.microsoft.com/powershell/)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white)]()
-[![Built with PS2EXE](https://img.shields.io/badge/Built%20with-PS2EXE-2D73DC)](https://github.com/MScholtes/PS2EXE)
 
 </div>
 
@@ -57,20 +56,10 @@ A successful response means the host is reachable for remoting.
 
 ## Install
 
-### Option 1 — Download the EXE (recommended for end-users)
-1. Go to the [**Releases**](https://github.com/nelladath/Remote-Shell-Runner/releases) page.
-2. Download `RemoteShellRunner.exe` from the latest release.
-3. Double-click to run. No installer, no registry entries, no admin rights.
+1. Download `RemoteShellRunner.exe` from this repository (or from the [**Releases**](https://github.com/nelladath/Remote-Shell-Runner/releases) page).
+2. Double-click to run. No installer, no registry entries, no admin rights.
 
 > First-launch SmartScreen note: because this is an unsigned community tool, Windows may show "Windows protected your PC" the first time you run a downloaded copy. Click **More info → Run anyway**. Subsequent launches are silent.
-
-### Option 2 — Run the script directly
-```powershell
-powershell -ExecutionPolicy Bypass -File .\RemoteTool.ps1
-```
-
-### Option 3 — Build from source
-See [Building from source](#building-from-source) below.
 
 ## Usage
 
@@ -81,41 +70,19 @@ See [Building from source](#building-from-source) below.
 5. After the run, click any hostname in the *Target Hosts* list to view only that host's output.
 6. Use **Export...** to save the full session as a UTF-8 `.log` file.
 
-## Building from source
-
-The repo ships with a self-contained build script that handles everything — module install, icon generation, and EXE compilation:
-
-```powershell
-git clone https://github.com/nelladath/Remote-Shell-Runner.git
-cd Remote-Shell-Runner
-powershell -ExecutionPolicy Bypass -File .\Build.ps1
-```
-
-What `Build.ps1` does:
-
-1. Installs the [`PS2EXE`](https://github.com/MScholtes/PS2EXE) module from PSGallery (CurrentUser scope, no admin needed) if not already present.
-2. Generates a multi-resolution Windows `.ico` (16 / 24 / 32 / 48 / 64 / 128 / 256) from `assets/RemoteShellRunner-logo.png`.
-3. Compiles `RemoteTool.ps1` into `RemoteShellRunner.exe` with `-NoConsole`, `-STA`, version metadata, and the icon embedded.
-
-To produce a versioned build:
-```powershell
-powershell -ExecutionPolicy Bypass -File .\Build.ps1 -Version "1.1.0.0"
-```
-
 ## Repository layout
 
 ```
 Remote-Shell-Runner/
 ├── assets/
-│   └── RemoteShellRunner-logo.png    Source logo - used by Build.ps1
+│   └── RemoteShellRunner-logo.png    Project logo
 ├── .gitignore
-├── Build.ps1                         Build script (PNG -> ICO -> EXE)
 ├── LICENSE                           MIT
 ├── README.md                         You are here
-└── RemoteTool.ps1                    The application source
+└── RemoteShellRunner.exe             The application (self-contained, no install)
 ```
 
-> Build outputs (`RemoteShellRunner.exe`, `RemoteShellRunner.ico`) are deliberately **not** in the repo — they're regenerable from source and live on the *Releases* page instead.
+> The PowerShell source for this tool is maintained privately and is not published in this repository. The EXE here is the official, ready-to-run distribution.
 
 ## Roadmap / ideas
 
@@ -128,13 +95,9 @@ These are not promises, just things I'd consider if there's interest:
 
 If any of these would help you, open an issue and say so.
 
-## Contributing
+## Feedback
 
-Issues and pull requests are welcome. Please:
-
-- Open an **issue** first to discuss anything non-trivial — saves us both time.
-- Match the existing code style in `RemoteTool.ps1` (Verb-Noun functions, `$clr*` colour palette, `$fnt*` font palette, `New-Rows`/`Put` table-layout helpers).
-- Don't commit build outputs (`.exe`, `.ico`); `.gitignore` already excludes them.
+Bug reports and feature requests are welcome — please open an **issue** on the repo. Source code is not currently accepted as pull requests since the project is maintained privately.
 
 ## License
 
